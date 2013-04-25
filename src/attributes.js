@@ -223,7 +223,13 @@ jQuery.extend({
 				// attributes.value is undefined in Blackberry 4.7 but
 				// uses .value. See #6932
 				var val = elem.attributes.value;
-				return !val || val.specified ? elem.value : elem.text;
+				// Attr.specified is Deprecated since Gecko 7.0
+				// specified of type boolean, readonly
+				// True if this attribute was explicitly given a value in the instance document, false otherwise. 
+				// If the application changed the value of this attribute node (even if it ends up having the same value as the default value) 
+				// then it is set to true. The implementation may handle attributes with default values from other schemas similarly 
+				// but applications should use Document.normalizeDocument() to guarantee this information is up-to-date. 
+				return !val || elem.value != null && elem.value != "null"  ? elem.value : elem.text;
 			}
 		},
 		select: {
